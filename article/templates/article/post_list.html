@@ -1,34 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-      <html>
-        <head>
-            <title>Django  blog</title>
-        </head>
-        <body>
-            <div>
-                <h1><a href="/">Django  Blog</a></h1>
+{% extends 'article/base.html' %}
 
-            </div>
+{% block content %}
+                {% for post in article %}
+                    <div class="post">
+                         {% if post.article_published_date %}
+                        <div class="date">
 
-            {% for post in article %}
+                            {{ post.article_published_date }}
 
-            <div>
-                <p>{{post.article_published_date}}</p>
-                <h2><a href="">{{ post.article_title }}</a></h2>
-
-                <p>{{ post.article_text | linebreaksbr }}</p>
-
+                        </div>
+                        {% endif %}
+                        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.article_title }}</a></h1>
+                        <p>{{ post.article_text|linebreaksbr }}</p>
+                    </div>
                 {% endfor %}
 
-
-            </div>
-
-            <div>
-                <p>published: 14.06.2014, 12:14</p>
-                <h2><a href="">My second post</a></h2>
-                <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut f.</p>
-            </div>
-        </body>
-    </html>
+{% endblock content %}
